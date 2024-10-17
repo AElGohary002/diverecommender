@@ -1,0 +1,9 @@
+import requests
+
+BASE_URL = 'https://dive.site/destinations/'
+
+def scrape_destinations():
+    response = requests.get(BASE_URL)
+    print(response.text)  # Print the raw HTML to inspect it
+
+scrape_destinations()

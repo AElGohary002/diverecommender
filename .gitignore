@@ -1,0 +1,16 @@
+# Ignore virtual environment directory
+myenv/
+
+# Python specific files
+*.pyc
+__pycache__/
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+
+# Ignore environment variables
+.env
+
+# Node.js specific files (if applicable)
+node_modules/
