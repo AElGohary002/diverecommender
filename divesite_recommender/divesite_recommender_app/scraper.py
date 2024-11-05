@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from divesite_recommender_app.models import DiveDestination
 
 BASE_URL = 'https://dive.site'
 
@@ -46,8 +47,6 @@ def scrape_data():
     url = f'{BASE_URL}/destinations/'
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-
-    country_links = []
     
     cont_div = soup.select('#all-destinations .destinations-list')
 
@@ -68,14 +67,13 @@ def scrape_data():
             # Get logged species
             logged_species = extract_logged_species(country_link)
 
-            country_links.append({
-                'continent':continent,
-                'country':country_name,
-                'link':country_link,
-                'Dive Types': dive_types,
-                'Logged Species': logged_species
-            })
-    return country_links
+            DiveDestination.objects.create(
+                continent = continent,
+                country = country_name,
+                link = country_link,
+                dive_types = ', '.join(dive_types),
+                logged_species = logged_species
+            )
 
 
 if __name__ == '__main__':
