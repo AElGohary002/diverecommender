@@ -1,0 +1,31 @@
+<form method="get" action="{% url 'filter_destinations' %}">
+    <label for="continent">Continent:</label>
+    <select name="continent" id="continent">
+        <option value="">All Continents</option>
+        {% for continent in continents %}
+            <option value="{{ continent }}" {% if selected_continent == continent %}selected{% endif %}>{{ continent }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="dive_type">Dive Type:</label>
+    <!-- <input type="text" name="dive_type" id="dive_type" value="{{ selected_dive_type }}"> -->
+    <select name="dive_type" id="dive_type">
+        <option value="">All Dives</option>
+        {% for dive_type in dive_types %}
+            <option value="{{ dive_type }}" {% if selected_dive_type == dive_type %}selected{% endif %}>{{ dive_type }}</option>
+        {% endfor %}
+    </select>
+    <label for="min_logged_species">Minimum Logged Species:</label>
+    <input type="number" name="min_logged_species" id="min_logged_species" value="{{ min_logged_species }}">
+
+    <button type="submit">Filter</button>
+</form>
+
+<h2>Filtered Dive Destinations</h2>
+<ul>
+    {% for destination in destinations %}
+        <li>{{ destination.country }} - {{ destination.continent }} - Dive Types: {{ destination.dive_types }} - Logged Species: {{ destination.logged_species }}</li>
+    {% empty %}
+        <li>No destinations match the selected filters.</li>
+    {% endfor %}
+</ul>

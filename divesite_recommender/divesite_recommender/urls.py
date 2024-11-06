@@ -16,7 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from divesite_recommender_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('', views.filter_destination, name='landing_page'),
+    path('filter/', views.filter_destination, name='filter_destinations'),
 ]
